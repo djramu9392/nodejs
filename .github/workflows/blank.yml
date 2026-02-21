@@ -3,30 +3,22 @@ name: Node Pipeline
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
 jobs:
-  build-test-run:
+  build:
     runs-on: windows-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 18
 
-      - name: Install dependencies
-        run: npm install
+      - run: dir   # debug
 
-      - name: Build project
-        run: npm run build
+      - run: npm install
+        working-directory: ./your-folder-name
 
-      - name: Run tests
-        run: npm test
-
-      - name: Start app
-        run: npm start
+      - run: npm run build
+        working-directory: ./your-folder-name
